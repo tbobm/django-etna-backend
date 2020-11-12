@@ -7,15 +7,15 @@ from django.contrib.auth.models import User
 from etnawrapper import EtnaWrapper
 
 
-class EtnaAPIBackend:
+class EtnaAuthBackend:
     """Authenticate through the ETNA API."""
 
     # pylint: disable=no-self-use,unused-argument
     def authenticate(self, request, username=None, password=None):
         """Make a request to the API and check for the return code."""
-        client = EtnaWrapper(username=username, password=password)
+        client = EtnaWrapper(login=username, password=password)
         try:
-            infos = client.get_user_infos()
+            infos = client.get_user_info()
             # TODO: Use proper exception handling
         except Exception as err:
             print(f'{username}: {err}')
